@@ -5,6 +5,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:formz/formz.dart';
 
 import '../../../core/assets/assets.gen.dart';
@@ -114,9 +115,13 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextStyle(fontSize: 14.sp, color: themeFont),
               ),
             ),
+            // Padding(
+            //   padding: EdgeInsets.symmetric(vertical: 20),
+            //   child: Image.asset(Assets.images.login.path),
+            // ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Image.asset(Assets.images.login.path),
+              padding: EdgeInsets.only(top: 60, bottom: 30),
+              child: SvgPicture.asset(Assets.material.login),
             ),
             const Hero(
               tag: 'Label-Email',
@@ -278,12 +283,14 @@ class _FormInputPassword extends StatelessWidget {
               textEditingController: state.fieldPassword.textEditingController,
               trailing: GestureDetector(
                 child: state.obscurePassword
-                    ? const Icon(
-                  Icons.visibility_outlined,
-                  color: themeBlue,
-                )
-                    : const Icon(Icons.visibility_off_outlined,
-                    color: ThemeColors.navy6),
+                    ? Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: SvgPicture.asset(Assets.material.eye),
+                    )
+                    : Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: SvgPicture.asset(Assets.material.hideEye),
+                ),
                 onTap: () => context
                     .read<LoginBloc>()
                     .add(TogglePasswordObscured(!state.obscurePassword)),

@@ -12,6 +12,11 @@ final kDateFullMonthFormat = DateFormat('dd MMMM yyyy', 'id_ID');
 final kDateTimeFullMonthFormat = DateFormat('dd MMMM yyyy HH:mm', 'id_ID');
 final kDateTimeShortMonthFormat = DateFormat('dd MMM yyyy HH:mm', 'id_ID');
 final kTimeFormat = DateFormat('HH:mm', 'id_ID');
+
+final kTimeSecondFormat = DateFormat('HH:mm:ss', 'id_ID');
+
+final kFormatTanggalAbsen = DateFormat('EEEE, dd/MM/yyyy', 'id_ID');
+
 final kBalanceFormat = NumberFormat.currency(
   locale: 'id_ID',
   decimalDigits: 0,
@@ -20,7 +25,7 @@ final kBalanceFormat = NumberFormat.currency(
 final kRupiahFormat = NumberFormat.currency(
   locale: 'id_ID',
   decimalDigits: 0,
-  symbol: 'Rp',
+  symbol: 'Rp ',
 );
 
 class NumericTextFormatter extends TextInputFormatter {

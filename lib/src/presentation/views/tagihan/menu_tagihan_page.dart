@@ -50,12 +50,12 @@ class _MenuTagihanPageState extends State<MenuTagihanPage> {
                     padding: EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Image.asset(Assets.images.penagihan.path),
+                        Image.asset(Assets.images.konfirmasi.path),
                         SizedBox(
                           height: 8,
                         ),
                         Text(
-                          "Penagihan",
+                          "Konfirmasi",
                           style: TextStyle(
                             color: themeBlueBg,
                             fontSize: 16,
@@ -91,6 +91,7 @@ class _MenuTagihanPageState extends State<MenuTagihanPage> {
                   splashColor: Color(0xFFB9D7FF),
                   onTap: () {
                     print("tapped");
+
                     Navigator.pushNamed(context, ListKonfirmasiPage.routeName);
                   },
                   child: Container(
@@ -98,12 +99,12 @@ class _MenuTagihanPageState extends State<MenuTagihanPage> {
                     padding: EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Image.asset(Assets.images.konfirmasi.path),
+                        Image.asset(Assets.images.penagihan.path),
                         SizedBox(
                           height: 8,
                         ),
                         Text(
-                          "Konfirmasi",
+                          "Penagihan",
                           style: TextStyle(
                             color: themeBlueBg,
                             fontSize: 16,

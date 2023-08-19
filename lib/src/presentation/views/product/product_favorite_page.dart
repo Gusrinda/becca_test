@@ -78,9 +78,12 @@ class _ProductFavoritePageState extends State<ProductFavoritePage> {
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 16,
                   builder: (ctx, index) {
-                    return CardListProduct(isFavorite: true, isDiscount: index.isOdd,);
-                  }
-              ),
+                    return CardListProduct(
+                      isFavorite: true,
+                      isDiscount: false,
+                      isOrder: true,
+                    );
+                  }),
               // child: GridView.builder(
               //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               //         crossAxisCount: 2,
@@ -253,7 +256,8 @@ class _ProductFavoritePageState extends State<ProductFavoritePage> {
                 Center(
                   child: Container(
                       padding: EdgeInsets.symmetric(
-                          vertical: 10,),
+                        vertical: 10,
+                      ),
                       child: GridView.count(
                         crossAxisCount: 2,
                         shrinkWrap: true,
@@ -277,7 +281,6 @@ class _ProductFavoritePageState extends State<ProductFavoritePage> {
                               valueListenable: rxPickup,
                               builder: (context, groupValue, child) {
                                 return RadioListTile(
-
                                   contentPadding: EdgeInsets.all(0),
                                   value: pickup,
                                   activeColor: themeBlueBg,
@@ -356,5 +359,4 @@ class _ProductFavoritePageState extends State<ProductFavoritePage> {
       },
     );
   }
-
 }

@@ -52,7 +52,7 @@ class FormInputVisitingCustomer extends StatelessWidget {
               hintText: "pilih customer",
               onTap: onTap,
               textEditingController: TextEditingController(
-                  text: null),
+                  text: input?? null),
               textInputAction: TextInputAction.next,
             ),
           ),
@@ -165,7 +165,7 @@ class FormInputVisitingTujuan extends StatelessWidget {
               hintText: "pilih tujuan",
               onTap: onTap,
               textEditingController: TextEditingController(
-                  text: null),
+                  text: input?? null),
               textInputAction: TextInputAction.next,
             ),
           ),

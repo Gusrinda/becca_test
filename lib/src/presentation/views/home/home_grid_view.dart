@@ -20,29 +20,29 @@ class _HomeMenuGridViewState extends State<HomeMenuGridView> {
   Widget build(BuildContext context) {
     final kListMenu = [
       HomeMenu(
-        image: Assets.icons.iconProduk.path,
+        image: Assets.material.box,
         label: 'Produk',
         onTap: () {
-          Navigator.pushNamed(context, ProductListPage.routeName);
+          Navigator.pushNamed(context, ProductListPage.routeName, arguments: false);
           //     .then((_) => {setState(() {})});
         },
       ),
       HomeMenu(
-        image: Assets.icons.iconTagihan.path,
+        image: Assets.material.category2Tone,
         label: 'Tagihan',
         onTap: () {
           Navigator.pushNamed(context, MenuTagihanPage.routeName);
         },
       ),
       HomeMenu(
-        image: Assets.icons.iconSetor.path,
+        image: Assets.material.costumer2Tone,
         label: 'Setor Tunai',
         onTap: () {
           Navigator.pushNamed(context, ListSetoranPage.routeName);
         },
       ),
       HomeMenu(
-        image: Assets.icons.iconTarget.path,
+        image: Assets.material.target,
         label: 'Target',
         onTap: () {
           Navigator.pushNamed(context, TargetPage.routeName);
@@ -117,7 +117,7 @@ class HomeMenu extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(image, width: 30, height: 30),
+                SvgPicture.asset(image, width: 30, height: 30),
                 // SvgPicture.asset(
                 //   image,
                 //   width: 40,

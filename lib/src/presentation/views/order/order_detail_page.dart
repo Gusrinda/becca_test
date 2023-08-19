@@ -238,7 +238,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
               width: MediaQuery.of(context).size.width,
               child: OutlinedButton.icon(
                 onPressed: () async {
-                  Navigator.pushNamed(context, CartListPage.routeName);
+                  Navigator.pushNamed(context, CartListPage.routeName, arguments: true);
                 },
                 icon: Icon(Icons.shopping_cart, color: Colors.white,),
                 label: Text(

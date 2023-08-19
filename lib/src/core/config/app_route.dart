@@ -1,3 +1,5 @@
+import 'package:becca_sales/src/core/model/argument_detail_product.dart';
+import 'package:becca_sales/src/presentation/views/absensi/checkout_page.dart';
 import 'package:becca_sales/src/presentation/views/auth/forget_password_page.dart';
 import 'package:becca_sales/src/presentation/views/auth/forget_password_page.dart';
 import 'package:becca_sales/src/presentation/views/auth/otp_page.dart';
@@ -9,16 +11,21 @@ import 'package:becca_sales/src/presentation/views/home/dashboard.dart';
 import 'package:becca_sales/src/presentation/views/home/dashboard.dart';
 import 'package:becca_sales/src/presentation/views/order/add_order_page.dart';
 import 'package:becca_sales/src/presentation/views/order/add_order_page.dart';
+import 'package:becca_sales/src/presentation/views/order/list_so_copy.dart';
 import 'package:becca_sales/src/presentation/views/order/order_detail_page.dart';
 import 'package:becca_sales/src/presentation/views/order/order_detail_page.dart';
 import 'package:becca_sales/src/presentation/views/order/order_page.dart';
 import 'package:becca_sales/src/presentation/views/order/order_page.dart';
 import 'package:becca_sales/src/presentation/views/order/sales_order_list_page.dart';
 import 'package:becca_sales/src/presentation/views/order/sales_order_list_page.dart';
+import 'package:becca_sales/src/presentation/views/product/history_harga_page.dart';
+import 'package:becca_sales/src/presentation/views/product/history_harga_page.dart';
 import 'package:becca_sales/src/presentation/views/product/product_detail_page.dart';
 import 'package:becca_sales/src/presentation/views/product/product_favorite_page.dart';
 import 'package:becca_sales/src/presentation/views/product/product_favorite_page.dart';
 import 'package:becca_sales/src/presentation/views/product/product_list_page.dart';
+import 'package:becca_sales/src/presentation/views/visiting/editing_visiting_page.dart';
+import 'package:becca_sales/src/presentation/views/visiting/editing_visiting_page.dart';
 import 'package:becca_sales/src/presentation/views/visiting/entry_visiting_page.dart';
 import 'package:becca_sales/src/presentation/views/visiting/entry_visiting_page.dart';
 import 'package:becca_sales/src/presentation/views/setoran/setoran_tunai_page.dart';
@@ -46,7 +53,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../presentation/blocs/login/login_bloc.dart';
+import '../../presentation/views/absensi/checkin_page.dart';
 import '../../presentation/views/auth/login_page.dart';
+import '../../presentation/views/product/detail_history_harga_page.dart';
 import '../../presentation/views/setoran/list_setoran_page.dart';
 import '../../presentation/views/splashscreen.dart';
 
@@ -60,15 +69,13 @@ class AppRoute {
     switch (settings.name) {
       case LoginPage.routeName:
         builder = (context) => MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => LoginBloc(
-
-              ),
-            ),
-          ],
-          child: const LoginPage(),
-        );
+              providers: [
+                BlocProvider(
+                  create: (context) => LoginBloc(),
+                ),
+              ],
+              child: const LoginPage(),
+            );
         fullScreenDialog = true;
         break;
       case RegisterPage.routeName:
@@ -86,6 +93,9 @@ class AppRoute {
       case OrderPage.routeName:
         builder = (context) => const OrderPage();
         break;
+      case ListSOCopy.routeName:
+        builder = (context) => const ListSOCopy();
+        break;
       case OrderDetailPage.routeName:
         builder = (context) => const OrderDetailPage();
         break;
@@ -102,16 +112,36 @@ class AppRoute {
         builder = (context) => const DetailTargetPage();
         break;
       case ProductListPage.routeName:
-        builder = (context) => const ProductListPage();
+        final fromOrder = settings.arguments as bool;
+
+        builder = (context) => ProductListPage(
+              fromOrder: fromOrder,
+            );
         break;
       case ProductFavoritePage.routeName:
         builder = (context) => const ProductFavoritePage();
         break;
       case DetailProductPage.routeName:
-        builder = (context) => const DetailProductPage();
+        final dataArgumen = settings.arguments as DetailProductArgument;
+
+        builder = (context) => DetailProductPage(
+              isCart: dataArgumen.isCart,
+              isOrder: dataArgumen.isOrder,
+              isReadOnly: dataArgumen.isReadOnly,
+            );
+        break;
+      case HistoryHargaPage.routeName:
+        builder = (context) => const HistoryHargaPage();
+        break;
+      case DetailHistoryHargaPage.routeName:
+        builder = (context) => const DetailHistoryHargaPage();
         break;
       case CartListPage.routeName:
-        builder = (context) => const CartListPage();
+        final fromSO = settings.arguments as bool;
+
+        builder = (context) => CartListPage(
+              fromSO: fromSO,
+            );
         break;
       case MenuTagihanPage.routeName:
         builder = (context) => const MenuTagihanPage();
@@ -132,10 +162,11 @@ class AppRoute {
         builder = (context) => const ListKonfirmasiPage();
         break;
       case ConfirmSuccessPage.routeName:
-
         String? textArgument = settings.arguments as String?;
 
-        builder = (context) =>  ConfirmSuccessPage(textBerhasil: textArgument,);
+        builder = (context) => ConfirmSuccessPage(
+              textBerhasil: textArgument,
+            );
         break;
       case ListSetoranPage.routeName:
         builder = (context) => const ListSetoranPage();
@@ -144,18 +175,44 @@ class AppRoute {
         builder = (context) => const SetoranTunaiPage();
         break;
       case EntryVisitingPage.routeName:
-
         bool isPlanned = settings.arguments as bool;
 
-        builder = (context) =>  EntryVisitingPage(isPlannedVisiting: isPlanned,);
+        builder = (context) => EntryVisitingPage(
+              isPlannedVisiting: isPlanned,
+            );
         break;
       case RealisasiVisitingPage.routeName:
         bool isPlanned = settings.arguments as bool;
 
-        builder = (context) =>  RealisasiVisitingPage(isPlannedVisiting: isPlanned,);
+        builder = (context) => RealisasiVisitingPage(
+              isPlannedVisiting: isPlanned,
+            );
         break;
       case DetailVisitingPage.routeName:
         builder = (context) => const DetailVisitingPage();
+        break;
+      case EditingVisitingPage.routeName:
+        Map<String, dynamic> argumen =
+            settings.arguments as Map<String, dynamic>;
+
+        bool isPlannedVisiting = argumen['isPlannedVisiting'] == "Plan";
+        bool isEditing = argumen['isEditing'];
+
+        builder = (context) => EditingVisitingPage(
+              isPlannedVisiting: isPlannedVisiting,
+              isEditing: isEditing,
+            );
+        break;
+      case CheckInPage.routeName:
+
+        var stringJudul = settings.arguments as String;
+
+        builder = (context) =>  CheckInPage(fromWhere: stringJudul,);
+        break;
+      case CheckOutPage.routeName:
+        var stringJudul = settings.arguments as String;
+
+        builder = (context) =>  CheckOutPage(fromWhere: stringJudul,);
         break;
       default:
         builder = (context) => const SplashScreen();

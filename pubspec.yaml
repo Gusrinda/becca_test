@@ -76,6 +76,7 @@ dependencies:
   currency_text_input_formatter: ^2.1.10
   font_awesome_flutter: ^10.5.0
   flutter_launcher_icons: ^0.13.1
+  flutter_easyloading: ^3.0.5
 #  test_api: ^0.5.1
 #  flutter_local_notifications: ^15.1.0+1
 
@@ -83,7 +84,7 @@ dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/logo_becca.png"
+  image_path: "assets/images/logo_becca_sq.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
 
 dev_dependencies:
@@ -106,6 +107,7 @@ flutter:
   assets:
   - assets/icons/
   - assets/images/
+  - assets/material/
 
 flutter_gen:
   output: lib/src/core/assets

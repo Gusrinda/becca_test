@@ -4,6 +4,7 @@ import 'package:dynamic_height_grid_view/dynamic_height_grid_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/config/theme_colors.dart';
@@ -12,7 +13,9 @@ import '../../widgets/text_field_widget.dart';
 class ProductListPage extends StatefulWidget {
   static const String routeName = '/product_list_page';
 
-  const ProductListPage({super.key});
+  final bool fromOrder;
+
+  const ProductListPage({super.key, required this.fromOrder});
 
   @override
   State<ProductListPage> createState() => _ProductListPageState();
@@ -45,9 +48,14 @@ class _ProductListPageState extends State<ProductListPage> {
                       width: 36,
                       height: 36,
                       color: themeBlueBg,
-                      child: Icon(
-                        CupertinoIcons.sort_up,
-                        color: Colors.white,
+                      child:
+                          // Icon(
+                          //   CupertinoIcons.sort_up,
+                          //   color: Colors.white,
+                          // )
+                          Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: SvgPicture.asset(Assets.material.sortAscending),
                       ))),
             ),
           ),
@@ -66,10 +74,16 @@ class _ProductListPageState extends State<ProductListPage> {
                       width: 36,
                       height: 36,
                       color: themeBlueBg,
-                      child: Icon(
-                        Icons.filter_alt,
-                        color: Colors.white,
-                      ))),
+                      child:
+                          // Icon(
+                          //   Icons.filter_alt,
+                          //   color: Colors.white,
+                          // )
+                          Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: SvgPicture.asset(Assets.material.filter),
+                      )
+                  )),
             ),
           ),
           SizedBox(
@@ -100,9 +114,12 @@ class _ProductListPageState extends State<ProductListPage> {
                   crossAxisSpacing: 12,
                   mainAxisSpacing: 16,
                   builder: (ctx, index) {
-                    return CardListProduct(isFavorite: index.isEven, isDiscount: index.isOdd,);
-                  }
-              ),
+                    return CardListProduct(
+                      isFavorite: index.isEven,
+                      isDiscount: false,
+                      isOrder: widget.fromOrder,
+                    );
+                  }),
               // child: GridView.builder(
               //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               //         crossAxisCount: 2,
@@ -275,7 +292,8 @@ class _ProductListPageState extends State<ProductListPage> {
                 Center(
                   child: Container(
                       padding: EdgeInsets.symmetric(
-                          vertical: 10,),
+                        vertical: 10,
+                      ),
                       child: GridView.count(
                         crossAxisCount: 2,
                         shrinkWrap: true,
@@ -299,7 +317,6 @@ class _ProductListPageState extends State<ProductListPage> {
                               valueListenable: rxPickup,
                               builder: (context, groupValue, child) {
                                 return RadioListTile(
-
                                   contentPadding: EdgeInsets.all(0),
                                   value: pickup,
                                   activeColor: themeBlueBg,
@@ -378,5 +395,4 @@ class _ProductListPageState extends State<ProductListPage> {
       },
     );
   }
-
 }

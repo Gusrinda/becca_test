@@ -6,6 +6,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../core/config/theme_colors.dart';
 import '../../widgets/text_field_widget.dart';
+import '../absensi/checkin_page.dart';
 
 class ListKonfirmasiPage extends StatefulWidget {
   static const String routeName = '/list_konfirmasi_page';
@@ -62,7 +63,13 @@ class CardListKonfirmasi extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ListNotaPenagihanPage.routeName);
+        Navigator.pushNamed(context, CheckInPage.routeName, arguments: "Konfirmasi Tagihan").then((value) {
+          if (value != null) {
+            if (value == true) {
+              Navigator.pushNamed(context, ListNotaPenagihanPage.routeName);
+            }
+          }
+        });
       },
       child: Card(
         shape: RoundedRectangleBorder(

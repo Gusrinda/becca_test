@@ -1,4 +1,5 @@
 import 'package:becca_sales/src/presentation/views/cart/cart_list_page.dart';
+import 'package:becca_sales/src/presentation/views/order/list_so_copy.dart';
 import 'package:becca_sales/src/presentation/views/order/order_widget.dart';
 import 'package:becca_sales/src/presentation/views/product/product_favorite_page.dart';
 import 'package:becca_sales/src/presentation/views/product/product_list_page.dart';
@@ -21,6 +22,11 @@ class AddOrderPage extends StatefulWidget {
 }
 
 class _AddOrderPageState extends State<AddOrderPage> {
+  bool isFromCopy = false;
+
+  bool isCheckedProject = false;
+  bool isCheckedDefault = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,9 +44,38 @@ class _AddOrderPageState extends State<AddOrderPage> {
               children: [
                 Row(
                   children: [
+                    isFromCopy
+                        ? Container(
+                            decoration: BoxDecoration(
+                                color: Color(0xFFEEEEEE),
+                                border: Border.all(color: Colors.grey),
+                                borderRadius: BorderRadius.circular(20)),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 8),
+                            child: Text(
+                              "SO-001",
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
+                            ))
+                        : SizedBox(),
                     Expanded(flex: 1, child: SizedBox()),
                     OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final isOke = await Navigator.pushNamed(
+                            context, ListSOCopy.routeName);
+
+                        print("Hasil copy SO => $isOke");
+
+                        if (isOke != null) {
+                          if (isOke == true) {
+                            setState(() {
+                              isFromCopy = true;
+                            });
+                          }
+                        }
+                      },
                       style: OutlinedButton.styleFrom(
                           foregroundColor: themeBlue,
                           backgroundColor: themeBlue,
@@ -64,7 +99,9 @@ class _AddOrderPageState extends State<AddOrderPage> {
                 SizedBox(
                   height: 8,
                 ),
-                FormInputCustomerOrder(),
+                FormInputCustomerOrder(
+                  input: isFromCopy ? "PT MULIA JAYA" : "",
+                ),
                 SizedBox(
                   height: 8,
                 ),
@@ -85,8 +122,34 @@ class _AddOrderPageState extends State<AddOrderPage> {
                           child: Checkbox(
                             fillColor: MaterialStateProperty.resolveWith(
                                 (states) => themeBlue),
-                            value: false,
-                            onChanged: null,
+                            value: isCheckedProject,
+                            onChanged: (value) {
+                              setState(() {
+                                isCheckedProject = value!;
+                              });
+                            },
+                          )),
+                      Text(
+                        "Project",
+                        style: TextStyle(
+                            fontSize: 10,
+                            color: themeBlue,
+                            fontStyle: FontStyle.italic),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Transform.scale(
+                          scale: 0.75,
+                          child: Checkbox(
+                            fillColor: MaterialStateProperty.resolveWith(
+                                (states) => themeBlue),
+                            value: isCheckedDefault,
+                            onChanged: (value) {
+                              setState(() {
+                                isCheckedDefault = value!;
+                              });
+                            },
                           )),
                       Text(
                         "Change Default",
@@ -111,7 +174,11 @@ class _AddOrderPageState extends State<AddOrderPage> {
                       maxLines: 3,
                       hintText: "input alamat",
                       textEditingController: TextEditingController(
-                          text: null),
+                          text: isFromCopy
+                              ? """JL CANDI LONTAR TENGAH 43 B NO. 1 
+RT 03, RW 14
+SURABAYA"""
+                              : null),
                       textInputAction: TextInputAction.next,
                     ),
                   ),
@@ -119,24 +186,41 @@ class _AddOrderPageState extends State<AddOrderPage> {
                 SizedBox(
                   height: 8,
                 ),
-                FormInputTipeEkspedisi(),
+                FormInputTipeEkspedisi(
+                  input: isFromCopy ? "Kontainer" : "",
+                ),
                 SizedBox(
                   height: 8,
                 ),
-                FormInputEkspedisiOrder(),
+                FormInputEkspedisiOrder(
+                  input: isFromCopy ? "JNE" : "",
+                ),
                 SizedBox(
                   height: 8,
                 ),
-                FormInputDepoOrder(),
+                FormInputDepoOrder(
+                  input: isFromCopy ? "WH0001" : "",
+                ),
                 SizedBox(
                   height: 8,
                 ),
-                FormInputCatatanOrder(),
+                FormInputCatatanOrder(
+                  input: isFromCopy ? "Catatan A" : "",
+                ),
                 SizedBox(
                   height: 8,
                 ),
-                FormInputDPPOrder(),
-                SizedBox(height: 8,),
+                // FormInputToPOrder(),
+                // SizedBox(
+                //   height: 8,
+                // ),
+                FormInputDPPOrder(
+                  input: isFromCopy ? "24.314" : "",
+                ),
+                SizedBox(
+                  height: 8,
+                ),
+
                 Hero(
                   tag: 'Label-RowTotalPPN',
                   flightShuttleBuilder: flightShuttleBuilder,
@@ -145,7 +229,9 @@ class _AddOrderPageState extends State<AddOrderPage> {
                     labelColor: themeFontDefault,
                   ),
                 ),
-                SizedBox(height: 4,),
+                SizedBox(
+                  height: 4,
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -153,19 +239,22 @@ class _AddOrderPageState extends State<AddOrderPage> {
                       child: FormzTextField(
                         readOnly: true,
                         textAlign: TextAlign.center,
-                        textEditingController: TextEditingController(
-                            text: "11%"),
+                        textEditingController:
+                            TextEditingController(text: "11%"),
                         textInputAction: TextInputAction.next,
                       ),
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Expanded(
                       flex: 100,
                       child: FormzTextField(
                         textAlign: TextAlign.end,
                         hintText: "0",
                         textEditingController: TextEditingController(
-                            text: null),
+                          text: isFromCopy ? "2.676" : "",
+                        ),
                         textInputAction: TextInputAction.next,
                       ),
                     ),
@@ -174,7 +263,9 @@ class _AddOrderPageState extends State<AddOrderPage> {
                 SizedBox(
                   height: 8,
                 ),
-                FormInputGrandTotalOrder(),
+                FormInputGrandTotalOrder(
+                  input: isFromCopy ? "27.000" : "",
+                ),
                 SizedBox(
                   height: 20,
                 ),
@@ -195,7 +286,8 @@ class _AddOrderPageState extends State<AddOrderPage> {
                           textButton: "Add Item",
                           onTapButton: () async {
                             Navigator.pushNamed(
-                                context, ProductListPage.routeName);
+                                context, ProductListPage.routeName,
+                                arguments: true);
                           },
                         )),
                     SizedBox(
@@ -223,8 +315,8 @@ class _AddOrderPageState extends State<AddOrderPage> {
                         flex: 1,
                         child: ButtonBottomOrder(
                           onTapButton: () async {
-                            Navigator.pushNamed(
-                                context, CartListPage.routeName);
+                            Navigator.pushNamed(context, CartListPage.routeName,
+                                arguments: false);
                           },
                           colorButton: themeOrange,
                           iconButton: Icons.shopping_cart,
@@ -245,7 +337,8 @@ class _AddOrderPageState extends State<AddOrderPage> {
                             if (isOke != null) {
                               if (isOke) {
                                 Navigator.popAndPushNamed(
-                                    context, ConfirmSuccessPage.routeName, arguments: "Order Berhasil Dibuat");
+                                    context, ConfirmSuccessPage.routeName,
+                                    arguments: "Order Berhasil Dibuat");
                               }
                             }
                           },
@@ -300,7 +393,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(Radius.circular(20))),
                           backgroundColor: ThemeColors.neutral4,
                         ),
                         child: Padding(
@@ -326,7 +419,7 @@ class _AddOrderPageState extends State<AddOrderPage> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
+                                  BorderRadius.all(Radius.circular(20))),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(16),
@@ -347,7 +440,6 @@ class _AddOrderPageState extends State<AddOrderPage> {
       },
     );
   }
-
 }
 
 class ButtonBottomOrder extends StatelessWidget {

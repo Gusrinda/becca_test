@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/config/theme_colors.dart';
+import '../../../core/model/argument_detail_product.dart';
 
 class CardListProduct extends StatelessWidget {
   const CardListProduct({
     super.key,
     required this.isFavorite,
     required this.isDiscount,
+    required this.isOrder,
   });
 
+  final bool isOrder;
   final bool isFavorite;
   final bool isDiscount;
 
@@ -18,7 +21,15 @@ class CardListProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, DetailProductPage.routeName);
+        DetailProductArgument detailProductArgument = DetailProductArgument(
+            isCart: false, isOrder: isOrder, isReadOnly: false);
+
+        Navigator.pushNamed(
+          context,
+          DetailProductPage.routeName,
+          arguments: detailProductArgument,
+        );
+
       },
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -55,35 +66,37 @@ class CardListProduct extends StatelessWidget {
                             ),
                           )
                         : SizedBox(),
-                    isDiscount ?   Positioned(
-                      top: 0,
-                      right: 18,
-                      child: ClipPath(
-                        clipper: TriangleClipper(),
-                        child: Container(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                          color: Color(0xFFFF3E3E),
-                          child: RichText(
-                            text: TextSpan(
-                              text: '5%',
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600),
-                              children: [
-                                TextSpan(
-                                    text: '\noff',
+                    isDiscount
+                        ? Positioned(
+                            top: 0,
+                            right: 18,
+                            child: ClipPath(
+                              clipper: TriangleClipper(),
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                color: Color(0xFFFF3E3E),
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: '5%',
                                     style: TextStyle(
                                         fontSize: 12,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w400)),
-                              ],
+                                        fontWeight: FontWeight.w600),
+                                    children: [
+                                      TextSpan(
+                                          text: '\noff',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.w400)),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                    ) : SizedBox()
+                          )
+                        : SizedBox()
                   ],
                 ),
               ),

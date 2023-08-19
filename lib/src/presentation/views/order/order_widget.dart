@@ -48,12 +48,14 @@ class FormInputCustomerOrder extends StatelessWidget {
               readOnly: true,
               trailing: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.keyboard_arrow_down_rounded, color: themeBlue,),
+                child: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: themeBlue,
+                ),
               ),
               hintText: "pilih customer",
               onTap: onTap,
-              textEditingController: TextEditingController(
-                  text: null),
+              textEditingController: TextEditingController(text: input),
               textInputAction: TextInputAction.next,
             ),
           ),
@@ -104,12 +106,14 @@ class FormInputTipeEkspedisi extends StatelessWidget {
               readOnly: true,
               trailing: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.keyboard_arrow_down_rounded, color: themeBlue,),
+                child: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: themeBlue,
+                ),
               ),
               hintText: "pilih tipe ekspedisi",
               onTap: onTap,
-              textEditingController: TextEditingController(
-                  text: null),
+              textEditingController: TextEditingController(text: input),
               textInputAction: TextInputAction.next,
             ),
           ),
@@ -160,12 +164,14 @@ class FormInputEkspedisiOrder extends StatelessWidget {
               readOnly: true,
               trailing: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.keyboard_arrow_down_rounded, color: themeBlue,),
+                child: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: themeBlue,
+                ),
               ),
               hintText: "pilih ekspedisi",
               onTap: onTap,
-              textEditingController: TextEditingController(
-                  text: null),
+              textEditingController: TextEditingController(text: input),
               textInputAction: TextInputAction.next,
             ),
           ),
@@ -216,12 +222,14 @@ class FormInputDepoOrder extends StatelessWidget {
               readOnly: true,
               trailing: Padding(
                 padding: const EdgeInsets.all(12.0),
-                child: Icon(Icons.keyboard_arrow_down_rounded, color: themeBlue,),
+                child: Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  color: themeBlue,
+                ),
               ),
               hintText: "pilih depo",
               onTap: onTap,
-              textEditingController: TextEditingController(
-                  text: null),
+              textEditingController: TextEditingController(text: input),
               textInputAction: TextInputAction.next,
             ),
           ),
@@ -272,8 +280,7 @@ class FormInputCatatanOrder extends StatelessWidget {
               readOnly: true,
               hintText: "input catatan",
               onTap: onTap,
-              textEditingController: TextEditingController(
-                  text: null),
+              textEditingController: TextEditingController(text: input),
               textInputAction: TextInputAction.next,
             ),
           ),
@@ -321,18 +328,70 @@ class FormInputDPPOrder extends StatelessWidget {
             color: Colors.transparent,
             // ignore: prefer_const_constructors
             child: FormzTextField(
-
               textAlign: TextAlign.end,
               hintText: "0",
               onTap: onTap,
-              textEditingController: TextEditingController(
-                  text: null),
+              textEditingController: TextEditingController(text: input),
               textInputAction: TextInputAction.next,
             ),
           ),
         )
       ],
     );
+  }
+}
+
+class FormInputToPOrder extends StatelessWidget {
+  const FormInputToPOrder({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+         List<String> daftarType = [
+          '30 Hari',
+          '15 Hari',
+          '12 Hari',
+          '7 Hari'
+        ];
+    List<DropdownMenuItem> daftarDropDown = List.from(
+        daftarType.map((e) => DropdownMenuItem(value: e, child: Text(e))));
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      // ignore: prefer_const_literals_to_create_immutables
+      children: [
+        const Hero(
+          tag: 'Label-ToP',
+          flightShuttleBuilder: flightShuttleBuilder,
+          child: FormTextLabel(
+            label: "ToP",
+            labelColor: fontColorBold,
+          ),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        // ignore: prefer_const_constructors
+        Hero(
+          tag: 'Form-ToP',
+          flightShuttleBuilder: flightShuttleBuilder,
+          // ignore: prefer_const_constructors
+          child: Material(
+              color: Colors.transparent,
+              // ignore: prefer_const_constructors
+              child: FormzDropDownField(
+                typeDropdown: 'TYPE_CUSTOMER',
+                daftarString: daftarType,
+                hintText: "Pilih ToP",
+                textInputAction: TextInputAction.next,
+                currentSelectedValue: daftarType[0],
+                inputItems: daftarDropDown,
+              )),
+        )
+      ],
+    );
+    ;
   }
 }
 
@@ -374,13 +433,10 @@ class FormInputGrandTotalOrder extends StatelessWidget {
             color: Colors.transparent,
             // ignore: prefer_const_constructors
             child: FormzTextField(
-
               textAlign: TextAlign.end,
               hintText: "0",
-
               onTap: onTap,
-              textEditingController: TextEditingController(
-                  text: null),
+              textEditingController: TextEditingController(text: input),
               textInputAction: TextInputAction.next,
             ),
           ),

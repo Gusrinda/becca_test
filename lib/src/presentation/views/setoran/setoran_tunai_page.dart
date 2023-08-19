@@ -126,13 +126,16 @@ class _SetoranTunaiPageState extends State<SetoranTunaiPage> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final metode = await handleFormPilihFoto(context);
 
-                    if (metode != null) {
-                      print("METODE => ${metode}");
+                    pickMetode("Camera");
 
-                      pickMetode(metode);
-                    }
+                    // final metode = await handleFormPilihFoto(context);
+                    //
+                    // if (metode != null) {
+                    //   print("METODE => ${metode}");
+                    //
+                    //   pickMetode(metode);
+                    // }
                   },
                   child: Container(
                       decoration: BoxDecoration(

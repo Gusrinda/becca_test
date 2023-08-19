@@ -1,6 +1,7 @@
 import 'package:becca_sales/src/core/config/constant.dart';
 import 'package:becca_sales/src/core/config/theme_colors.dart';
 import 'package:becca_sales/src/presentation/views/home/home_grid_view.dart';
+import 'package:becca_sales/src/presentation/views/order/order_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * 0.55,
+                height: MediaQuery.of(context).size.height * 0.6,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.white12,
                         ),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,7 +169,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Expanded(
+                flex :1 ,
                 child: Container(
+                  height: MediaQuery.of(context).size.height * 0.45,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           topRight: Radius.circular(30),
@@ -253,20 +256,25 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(
                                       height: 6,
                                     ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 4),
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(20)),
-                                          border:
-                                              Border.all(color: Colors.black54)),
-                                      child: Text(
-                                        "Lihat lainnya  >",
-                                        style: TextStyle(
-                                          fontSize: 10.sp,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w500,
+                                    GestureDetector(
+                                      onTap: () {
+
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 4),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.all(Radius.circular(20)),
+                                            border:
+                                                Border.all(color: Colors.black54)),
+                                        child: Text(
+                                          "Lihat lainnya  >",
+                                          style: TextStyle(
+                                            fontSize: 10.sp,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     )
@@ -290,7 +298,9 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+
 class HomeCardListTarget extends StatelessWidget {
+
   const HomeCardListTarget({
     super.key,
   });
@@ -438,12 +448,17 @@ class MenuRangkuman extends StatelessWidget {
                       SizedBox(
                         height: 6,
                       ),
-                      Text(
-                        "Lihat detail >",
-                        style: TextStyle(
-                          fontSize: 10.sp,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, OrderPage.routeName);
+                        },
+                        child: Text(
+                          "Lihat detail >",
+                          style: TextStyle(
+                            fontSize: 10.sp,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       )
                     ],

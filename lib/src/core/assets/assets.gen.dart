@@ -392,6 +392,10 @@ class $AssetsImagesGen {
   AssetGenImage get logoBecca =>
       const AssetGenImage('assets/images/logo_becca.png');
 
+  /// File path: assets/images/logo_becca_sq.png
+  AssetGenImage get logoBeccaSq =>
+      const AssetGenImage('assets/images/logo_becca_sq.png');
+
   /// File path: assets/images/penagihan.png
   AssetGenImage get penagihan =>
       const AssetGenImage('assets/images/penagihan.png');
@@ -457,6 +461,7 @@ class $AssetsImagesGen {
         imageCard,
         konfirmasi,
         logoBecca,
+        logoBeccaSq,
         penagihan,
         pinLokasi,
         pinLokasiNotes,
@@ -474,11 +479,232 @@ class $AssetsImagesGen {
       ];
 }
 
+class $AssetsMaterialGen {
+  const $AssetsMaterialGen();
+
+  /// File path: assets/material/Bell.svg
+  String get bell => 'assets/material/Bell.svg';
+
+  /// File path: assets/material/Bell_blue.svg
+  String get bellBlue => 'assets/material/Bell_blue.svg';
+
+  /// File path: assets/material/Category 2 tone.svg
+  String get category2Tone => 'assets/material/Category 2 tone.svg';
+
+  /// File path: assets/material/Chevron left.svg
+  String get chevronLeft => 'assets/material/Chevron left.svg';
+
+  /// File path: assets/material/Costumer 2 tone.svg
+  String get costumer2Tone => 'assets/material/Costumer 2 tone.svg';
+
+  /// File path: assets/material/Ellipse 17.svg
+  String get ellipse17 => 'assets/material/Ellipse 17.svg';
+
+  /// File path: assets/material/Ellipse 18.svg
+  String get ellipse18 => 'assets/material/Ellipse 18.svg';
+
+  /// File path: assets/material/Ellipse 67.svg
+  String get ellipse67 => 'assets/material/Ellipse 67.svg';
+
+  /// File path: assets/material/Ellipse 68.svg
+  String get ellipse68 => 'assets/material/Ellipse 68.svg';
+
+  /// File path: assets/material/Group 7.svg
+  String get group7 => 'assets/material/Group 7.svg';
+
+  /// File path: assets/material/Login.svg
+  String get login => 'assets/material/Login.svg';
+
+  /// File path: assets/material/Order.svg
+  String get order => 'assets/material/Order.svg';
+
+  /// File path: assets/material/Photo 6.svg
+  String get photo6 => 'assets/material/Photo 6.svg';
+
+  /// File path: assets/material/Rectangle 86.svg
+  String get rectangle86 => 'assets/material/Rectangle 86.svg';
+
+  /// File path: assets/material/Rectangle 87.svg
+  String get rectangle87 => 'assets/material/Rectangle 87.svg';
+
+  /// File path: assets/material/Search.svg
+  String get search => 'assets/material/Search.svg';
+
+  /// File path: assets/material/Take Order A.svg
+  String get takeOrderA => 'assets/material/Take Order A.svg';
+
+  /// File path: assets/material/Take Order B.svg
+  String get takeOrderB => 'assets/material/Take Order B.svg';
+
+  /// File path: assets/material/Take Order C.svg
+  String get takeOrderC => 'assets/material/Take Order C.svg';
+
+  /// File path: assets/material/Take Order.svg
+  String get takeOrder => 'assets/material/Take Order.svg';
+
+  /// File path: assets/material/Time Circle.svg
+  String get timeCircle => 'assets/material/Time Circle.svg';
+
+  /// File path: assets/material/arrow-left.svg
+  String get arrowLeft => 'assets/material/arrow-left.svg';
+
+  /// File path: assets/material/box.svg
+  String get box => 'assets/material/box.svg';
+
+  /// File path: assets/material/camera.svg
+  String get camera => 'assets/material/camera.svg';
+
+  /// File path: assets/material/cart.svg
+  String get cart => 'assets/material/cart.svg';
+
+  /// File path: assets/material/check-circle.svg
+  String get checkCircle => 'assets/material/check-circle.svg';
+
+  /// File path: assets/material/check.svg
+  String get check => 'assets/material/check.svg';
+
+  /// File path: assets/material/chevron-down.svg
+  String get chevronDown => 'assets/material/chevron-down.svg';
+
+  /// File path: assets/material/copy.svg
+  String get copy => 'assets/material/copy.svg';
+
+  /// File path: assets/material/delete isi keranjang.svg
+  String get deleteIsiKeranjang => 'assets/material/delete isi keranjang.svg';
+
+  /// File path: assets/material/delete.svg
+  String get delete => 'assets/material/delete.svg';
+
+  /// File path: assets/material/eye.svg
+  String get eye => 'assets/material/eye.svg';
+
+  /// File path: assets/material/filter.svg
+  String get filter => 'assets/material/filter.svg';
+
+  /// File path: assets/material/hide eye.svg
+  String get hideEye => 'assets/material/hide eye.svg';
+
+  /// File path: assets/material/home.svg
+  String get home => 'assets/material/home.svg';
+
+  /// File path: assets/material/image_approve.svg
+  String get imageApprove => 'assets/material/image_approve.svg';
+
+  /// File path: assets/material/image_check.svg
+  String get imageCheck => 'assets/material/image_check.svg';
+
+  /// File path: assets/material/image_question.svg
+  String get imageQuestion => 'assets/material/image_question.svg';
+
+  /// File path: assets/material/image_success.svg
+  String get imageSuccess => 'assets/material/image_success.svg';
+
+  /// File path: assets/material/map-pin.svg
+  String get mapPin => 'assets/material/map-pin.svg';
+
+  /// File path: assets/material/map_blue.svg
+  String get mapBlue => 'assets/material/map_blue.svg';
+
+  /// File path: assets/material/minus.svg
+  String get minus => 'assets/material/minus.svg';
+
+  /// File path: assets/material/pencil-alt.svg
+  String get pencilAlt => 'assets/material/pencil-alt.svg';
+
+  /// File path: assets/material/plus-circle.svg
+  String get plusCircle => 'assets/material/plus-circle.svg';
+
+  /// File path: assets/material/plus.svg
+  String get plus => 'assets/material/plus.svg';
+
+  /// File path: assets/material/receipt-tax.svg
+  String get receiptTax => 'assets/material/receipt-tax.svg';
+
+  /// File path: assets/material/sort-ascending.svg
+  String get sortAscending => 'assets/material/sort-ascending.svg';
+
+  /// File path: assets/material/star.svg
+  String get star => 'assets/material/star.svg';
+
+  /// File path: assets/material/target.svg
+  String get target => 'assets/material/target.svg';
+
+  /// File path: assets/material/trash-2.svg
+  String get trash2 => 'assets/material/trash-2.svg';
+
+  /// File path: assets/material/user.svg
+  String get user => 'assets/material/user.svg';
+
+  /// File path: assets/material/user_blue.svg
+  String get userBlue => 'assets/material/user_blue.svg';
+
+  /// File path: assets/material/x-circle.svg
+  String get xCircle => 'assets/material/x-circle.svg';
+
+  /// List of all assets
+  List<String> get values => [
+        bell,
+        bellBlue,
+        category2Tone,
+        chevronLeft,
+        costumer2Tone,
+        ellipse17,
+        ellipse18,
+        ellipse67,
+        ellipse68,
+        group7,
+        login,
+        order,
+        photo6,
+        rectangle86,
+        rectangle87,
+        search,
+        takeOrderA,
+        takeOrderB,
+        takeOrderC,
+        takeOrder,
+        timeCircle,
+        arrowLeft,
+        box,
+        camera,
+        cart,
+        checkCircle,
+        check,
+        chevronDown,
+        copy,
+        deleteIsiKeranjang,
+        delete,
+        eye,
+        filter,
+        hideEye,
+        home,
+        imageApprove,
+        imageCheck,
+        imageQuestion,
+        imageSuccess,
+        mapPin,
+        mapBlue,
+        minus,
+        pencilAlt,
+        plusCircle,
+        plus,
+        receiptTax,
+        sortAscending,
+        star,
+        target,
+        trash2,
+        user,
+        userBlue,
+        xCircle
+      ];
+}
+
 class Assets {
   Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsMaterialGen material = $AssetsMaterialGen();
 }
 
 class AssetGenImage {

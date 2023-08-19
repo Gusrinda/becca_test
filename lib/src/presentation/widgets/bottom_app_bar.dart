@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:math' as math;
 
 import '../../core/config/theme_colors.dart';
@@ -13,7 +14,7 @@ class CustomBottomAppBarItem {
     this.badge = 0,
   });
 
-  final IconData icon;
+  final String icon;
   final String? activeIcon;
   final String? text;
   final int badge;
@@ -147,22 +148,28 @@ class CustomBottomAppBarState extends State<CustomBottomAppBar> {
         ? (widget.selectedLabelStyle ?? const TextStyle())
         : (widget.unselectedLabelStyle ?? const TextStyle());
 
-    final iconWidget = selected
-        ? ShaderMask(
-            blendMode: BlendMode.srcIn,
-            // ignore: prefer_const_constructors
-            shaderCallback: (bounds) {
-              // ignore: prefer_const_constructors
-              return LinearGradient(
-                begin: Alignment(-1.0, 0.0),
-                end: Alignment(1.0, 0.0),
-                transform: GradientRotation(math.pi / 4),
-                colors: ThemeColors.linearGradientColors,
-                tileMode: TileMode.mirror,
-              ).createShader(bounds);
-            },
-            child: Icon(item.icon, size: widget.iconSize))
-        : Icon(item.icon, color: color, size: widget.iconSize);
+
+    final iconWidget = SvgPicture.asset(item.icon!, width: widget.iconSize,
+      colorFilter: ColorFilter.mode(
+          color, BlendMode.srcIn),
+    );
+
+    // final iconWidget = selected
+    //     ? ShaderMask(
+    //         blendMode: BlendMode.srcIn,
+    //         // ignore: prefer_const_constructors
+    //         shaderCallback: (bounds) {
+    //           // ignore: prefer_const_constructors
+    //           return LinearGradient(
+    //             begin: Alignment(-1.0, 0.0),
+    //             end: Alignment(1.0, 0.0),
+    //             transform: GradientRotation(math.pi / 4),
+    //             colors: ThemeColors.linearGradientColors,
+    //             tileMode: TileMode.mirror,
+    //           ).createShader(bounds);
+    //         },
+    //         child: SvgPicture.asset(item.icon))
+    //     : Icon(item.icon, color: color, size: widget.iconSize);
 
     return Expanded(
       child: SizedBox(

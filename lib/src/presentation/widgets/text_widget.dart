@@ -125,9 +125,10 @@ class TextListJudulSubJudul extends StatelessWidget {
     required this.judul,
     required this.subJudul,
     this.styleJudul,
-    this.styleSubJudul,
+    this.styleSubJudul, this.padding,
   });
 
+  final double? padding;
   final String judul;
   final TextStyle? styleJudul;
   final String subJudul;
@@ -136,7 +137,7 @@ class TextListJudulSubJudul extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: EdgeInsets.symmetric(horizontal: padding ?? 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

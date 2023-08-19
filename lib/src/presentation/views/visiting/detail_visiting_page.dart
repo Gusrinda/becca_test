@@ -273,79 +273,115 @@ class _DetailVisitingPageState extends State<DetailVisitingPage> {
           ),
           SafeArea(
             minimum: EdgeInsets.only(bottom: 32, left: 32, right: 32),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: ()async {
-                          final isOke = await handleFormSubmit(context, "delete");
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: ElevatedButton(
+                onPressed: () async {
+                  // final isOke = await handleFormSubmit(context, "edit");
+                  //
+                  // if (isOke != null) {
+                  //   if (isOke) {
+                  //
+                  //     Random random = new Random();
+                  //
+                  //     Navigator.pushNamed(context, RealisasiVisitingPage.routeName,
+                  //         arguments: random.nextBool());
+                  //   }
+                  // }
 
-                          if (isOke != null) {
-                            if (isOke) {
-                              Navigator.pop(context);
-                            }
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: themeRed,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: const Text('Delete',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 32,
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final isOke = await handleFormSubmit(context, "edit");
+                  Navigator.pop(context);
 
-                          if (isOke != null) {
-                            if (isOke) {
-
-                              Random random = new Random();
-
-                              Navigator.pushNamed(context, RealisasiVisitingPage.routeName,
-                              arguments: random.nextBool());
-                            }
-                          }
-
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: themeBlueBg,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(20))),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: const Text('Edit',
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white)),
-                        ),
-                      ),
-                    ),
-                  ],
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFEEEEEE),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                      BorderRadius.all(Radius.circular(30))),
                 ),
-
-              ],
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: const Text('Kembali',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black)),
+                ),
+              ),
             ),
+            // child: Column(
+            //   children: [
+            //     Row(
+            //       children: [
+            //         Expanded(
+            //           child: ElevatedButton(
+            //             onPressed: ()async {
+            //               final isOke = await handleFormSubmit(context, "delete");
+            //
+            //               if (isOke != null) {
+            //                 if (isOke) {
+            //                   Navigator.pop(context);
+            //                 }
+            //               }
+            //             },
+            //             style: ElevatedButton.styleFrom(
+            //               backgroundColor: themeRed,
+            //               elevation: 0,
+            //               shape: RoundedRectangleBorder(
+            //                   borderRadius:
+            //                   BorderRadius.all(Radius.circular(20))),
+            //             ),
+            //             child: Padding(
+            //               padding: const EdgeInsets.all(16),
+            //               child: const Text('Delete',
+            //                   style: TextStyle(
+            //                       fontSize: 16,
+            //                       fontWeight: FontWeight.w400,
+            //                       color: Colors.white)),
+            //             ),
+            //           ),
+            //         ),
+            //         SizedBox(
+            //           width: 32,
+            //         ),
+            //         Expanded(
+            //           child: ElevatedButton(
+            //             onPressed: () async {
+            //               final isOke = await handleFormSubmit(context, "edit");
+            //
+            //               if (isOke != null) {
+            //                 if (isOke) {
+            //
+            //                   Random random = new Random();
+            //
+            //                   Navigator.pushNamed(context, RealisasiVisitingPage.routeName,
+            //                   arguments: random.nextBool());
+            //                 }
+            //               }
+            //
+            //             },
+            //             style: ElevatedButton.styleFrom(
+            //               backgroundColor: themeBlueBg,
+            //               elevation: 0,
+            //               shape: RoundedRectangleBorder(
+            //                   borderRadius:
+            //                   BorderRadius.all(Radius.circular(20))),
+            //             ),
+            //             child: Padding(
+            //               padding: const EdgeInsets.all(16),
+            //               child: const Text('Edit',
+            //                   style: TextStyle(
+            //                       fontSize: 16,
+            //                       fontWeight: FontWeight.w400,
+            //                       color: Colors.white)),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //
+            //   ],
+            // ),
           )
         ],
       ),

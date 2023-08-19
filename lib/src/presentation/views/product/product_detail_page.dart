@@ -1,28 +1,48 @@
 import 'package:becca_sales/src/core/config/constant.dart';
 import 'package:becca_sales/src/core/config/theme_colors.dart';
+import 'package:becca_sales/src/core/model/argument_detail_product.dart';
 import 'package:becca_sales/src/presentation/views/cart/cart_list_page.dart';
+import 'package:becca_sales/src/presentation/views/product/history_harga_page.dart';
 import 'package:becca_sales/src/presentation/widgets/chip_widget.dart';
 import 'package:becca_sales/src/presentation/widgets/text_field_widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/assets/assets.gen.dart';
 
 class DetailProductPage extends StatefulWidget {
   static const String routeName = '/product_detail_page';
 
-  const DetailProductPage({super.key});
+  const DetailProductPage(
+      {super.key,
+      required this.isOrder,
+      required this.isCart,
+      required this.isReadOnly});
+
+  final bool isOrder;
+  final bool isCart;
+  final bool isReadOnly;
 
   @override
   State<DetailProductPage> createState() => _DetailProductPageState();
 }
 
 class _DetailProductPageState extends State<DetailProductPage> {
+  bool isOpenAllFAB = false;
+
   @override
   Widget build(BuildContext context) {
     int _current = 0;
     final CarouselController _controller = CarouselController();
+
+    var detailProductStats = DetailProductArgument(
+        isReadOnly: widget.isReadOnly,
+        isOrder: widget.isOrder,
+        isCart: widget.isCart);
+
+    print("DETAIL PRODUCT STATS : \n${detailProductStats.toString()}");
 
     List<String> daftarImage = [
       Assets.images.produk1.path,
@@ -129,7 +149,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     maxLines: 2,
                   ),
                 ),
-                Icon(Icons.favorite_border_rounded)
+                Icon(Icons.star_border_rounded)
               ],
             ),
           ),
@@ -296,127 +316,156 @@ class _DetailProductPageState extends State<DetailProductPage> {
                 SizedBox(
                   width: 18,
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFD9D9D9)),
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: IntrinsicHeight(
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                width: 4,
-                              ),
-                              InkWell(
-                                  onTap: () {},
-                                  child: Icon(
-                                    Icons.remove,
-                                    color: themeBlueBg,
-                                    size: 10,
-                                  )),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2),
-                                child: VerticalDivider(
-                                  thickness: 1,
-                                  color: Color(0xFFD9D9D9),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 3),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 3, vertical: 2),
-                                  child: Center(
-                                    child: Text(
-                                      '5',
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 12),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 2),
-                                child: VerticalDivider(
-                                  thickness: 1,
-                                  color: Color(0xFFD9D9D9),
-                                ),
-                              ),
-                              InkWell(
-                                  onTap: () {},
-                                  child: Icon(
-                                    Icons.add,
-                                    color: themeBlueBg,
-                                    size: 10,
-                                  )),
-                              SizedBox(
-                                width: 4,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Container(
-                        padding: EdgeInsets.all(0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFFD9D9D9)),
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: Row(
+                (detailProductStats.isOrder || detailProductStats.isCart)
+                    ? Expanded(
+                        flex: 1,
+                        child: Column(
                           children: [
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.all(3),
-                                child: Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 3),
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 3, vertical: 2),
-                                  child: Center(
-                                    child: Text(
-                                      'Pilih UoM',
-                                      style: TextStyle(
-                                          color: Color(0xFF858585),
-                                          fontSize: 10,
-                                          fontStyle: FontStyle.italic),
+                            Container(
+                              padding: EdgeInsets.all(3),
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color(0xFFD9D9D9)),
+                                borderRadius: BorderRadius.circular(5),
+                                color: detailProductStats.isReadOnly
+                                    ? Color(0xFFEEEEEE)
+                                    : Colors.white,
+                              ),
+                              child: IntrinsicHeight(
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 4,
                                     ),
-                                  ),
+                                    InkWell(
+                                        onTap: () {},
+                                        child: Icon(
+                                          Icons.remove,
+                                          color: detailProductStats.isReadOnly
+                                              ? Colors.white
+                                              : themeBlueBg,
+                                          size: 10,
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2),
+                                      child: VerticalDivider(
+                                        thickness: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 3),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 3, vertical: 2),
+                                        child: Center(
+                                          child: Text(
+                                            '5',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 12),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 2),
+                                      child: VerticalDivider(
+                                        thickness: 1,
+                                        color: Color(0xFFD9D9D9),
+                                      ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {},
+                                        child: Icon(
+                                          Icons.add,
+                                          color: detailProductStats.isReadOnly
+                                              ? Colors.white
+                                              : themeBlueBg,
+                                          size: 10,
+                                        )),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 6),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(3),
-                                      bottomRight: Radius.circular(3)),
-                                  color: Color(0xFFCCD2E3)),
-                              child: Icon(
-                                Icons.search_rounded,
-                                size: 14,
-                                color: Color(0xFF444444),
+                            SizedBox(
+                              height: 6,
+                            ),
+                            GestureDetector(
+                              onTap: () async {
+                                final uomChoosed =
+                                    await handleFormSort(context);
+
+                                if (uomChoosed != null) {
+                                  print("UOM CHOOSED => $uomChoosed");
+                                }
+                              },
+                              child: Container(
+                                padding: EdgeInsets.all(0),
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color(0xFFD9D9D9)),
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: detailProductStats.isReadOnly
+                                      ? Color(0xFFEEEEEE)
+                                      : Colors.white,
+                                ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(3),
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: 3),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 3, vertical: 2),
+                                          child: Center(
+                                            child: Text(
+                                              detailProductStats.isReadOnly
+                                                  ? 'BOX'
+                                                  : 'Pilih UoM',
+                                              style: TextStyle(
+                                                  color: Color(0xFF858585),
+                                                  fontSize: 10,
+                                                  fontStyle: FontStyle.italic),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    detailProductStats.isReadOnly
+                                        ? SizedBox()
+                                        : Container(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 8, horizontal: 6),
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    topRight:
+                                                        Radius.circular(3),
+                                                    bottomRight:
+                                                        Radius.circular(3)),
+                                                color: Color(0xFFCCD2E3)),
+                                            child: Icon(
+                                              Icons.search_rounded,
+                                              size: 14,
+                                              color: Color(0xFF444444),
+                                            ),
+                                          ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
                         ),
-                      ),
-                    ],
-                  ),
-                )
+                      )
+                    : SizedBox()
               ],
             ),
           ),
@@ -447,7 +496,9 @@ class _DetailProductPageState extends State<DetailProductPage> {
               children: [
                 GestureDetector(
                   onTap: () async {
-                    final onHarga = await handleFormHarga(context);
+                    // final onHarga = await handleFormHarga(context);
+
+                    Navigator.pushNamed(context, HistoryHargaPage.routeName);
                   },
                   child: Container(
                     padding: EdgeInsets.all(10),
@@ -457,11 +508,7 @@ class _DetailProductPageState extends State<DetailProductPage> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.history_edu_rounded,
-                          color: Color(0xFF015AFF),
-                          size: 16,
-                        ),
+                        SvgPicture.asset(Assets.material.pencilAlt),
                         SizedBox(
                           width: 6,
                         ),
@@ -482,61 +529,78 @@ class _DetailProductPageState extends State<DetailProductPage> {
       ),
       floatingActionButton: Container(
         margin: EdgeInsets.only(right: 10, bottom: 10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // FloatingActionButton(
-            //   onPressed: () {},
-            //   elevation: 0,
-            //   backgroundColor: Color(0xFFFFBE02),
-            //   child: Icon(
-            //     Icons.receipt_outlined,
-            //     color: Colors.white,
-            //   ),
-            // ),
-            // SizedBox(height: 32,),
-            // FloatingActionButton(
-            //   onPressed: () {},
-            //   elevation: 0,
-            //   backgroundColor: Color(0xFFEB321A),
-            //   child: Icon(
-            //     Icons.delete_forever_rounded,
-            //     color: Colors.white,
-            //   ),
-            // ),
-            SizedBox(
-              height: 32,
-            ),
-            Stack(
-              children: [
-                FloatingActionButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, CartListPage.routeName);
-                  },
-                  elevation: 0,
-                  backgroundColor: Color(0xFFFFBE02),
-                  child: Icon(
-                    Icons.add_shopping_cart_rounded,
-                    color: Colors.white,
-                  ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, color: Colors.green),
-                    child: Icon(
-                      Icons.add,
-                      size: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+        child: !detailProductStats.isReadOnly
+            ? detailProductStats.isOrder || detailProductStats.isCart
+                ? detailProductStats.isCart
+                    ? Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FloatingActionButton(
+                            onPressed: () {
+                              handleFormHarga(context);
+                            },
+                            elevation: 0,
+                            backgroundColor: Color(0xFFFFBE02),
+                            child: SvgPicture.asset(
+                              Assets.material.receiptTax,
+                              width: 24,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 32,
+                          ),
+                          FloatingActionButton(
+                            onPressed: () {},
+                            elevation: 0,
+                            backgroundColor: Color(0xFFEB321A),
+                            child: SvgPicture.asset(
+                              Assets.material.delete,
+                              width: 24,
+                            ),
+                          )
+                        ],
+                      )
+                    : Stack(
+                        children: [
+                          FloatingActionButton(
+                            onPressed: () async {
+                              final isYes = await handleFormHarga(context);
+
+                              if (isYes != null) {
+                                if (isYes) {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                  Navigator.pushNamed(
+                                      context, CartListPage.routeName,
+                                      arguments: false);
+                                }
+                              }
+                            },
+                            elevation: 0,
+                            backgroundColor: Color(0xFFFFBE02),
+                            child: SvgPicture.asset(
+                              Assets.material.cart,
+                              width: 24,
+                            ),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            right: 0,
+                            child: Container(
+                              padding: EdgeInsets.all(2),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle, color: Colors.green),
+                              child: Icon(
+                                Icons.add,
+                                size: 16,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                : SizedBox()
+            : SizedBox(),
       ),
     );
   }
@@ -651,11 +715,135 @@ class _DetailProductPageState extends State<DetailProductPage> {
       },
     );
   }
+
+  Future<String?> handleFormSort(BuildContext context) async {
+    final rxPickup = ValueNotifier('ROL');
+
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(24, 40, 24, 20),
+            constraints: const BoxConstraints(minWidth: 340),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "Choose Sort By",
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: themeFontDefault),
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                Center(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 10,
+                        horizontal: MediaQuery.of(context).size.width / 9),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ...['ROL', 'BOX', 'Koli', 'KG'].map((pickup) {
+                          return ValueListenableBuilder<String>(
+                            valueListenable: rxPickup,
+                            builder: (context, groupValue, child) {
+                              return RadioListTile(
+                                contentPadding: EdgeInsets.all(0),
+                                value: pickup,
+                                activeColor: themeBlueBg,
+                                groupValue: groupValue,
+                                onChanged: (value) => rxPickup.value = value!,
+                                title: Text(
+                                  pickup,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      color: themeBlack),
+                                ),
+                              );
+                            },
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 24,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.pop(context, null),
+                        style: ElevatedButton.styleFrom(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          backgroundColor: ThemeColors.neutral4,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: themeFontDefault),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context, rxPickup.value);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: themeBlueBg,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: const Text('OK',
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 class LabelListHarga extends StatelessWidget {
   const LabelListHarga({
-    super.key, required this.judulLabel, required this.isEnabled,
+    super.key,
+    required this.judulLabel,
+    required this.isEnabled,
   });
 
   final String judulLabel;
@@ -667,9 +855,7 @@ class LabelListHarga extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 4),
       child: Row(
         children: [
-          Expanded(
-              flex: 1,
-              child: Text(judulLabel)),
+          Expanded(flex: 1, child: Text(judulLabel)),
           SizedBox(
             width: 20,
           ),

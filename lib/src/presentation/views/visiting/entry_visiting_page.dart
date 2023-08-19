@@ -7,6 +7,7 @@ import '../../../core/config/theme_colors.dart';
 import '../../../core/utils/formatter.dart';
 import '../../widgets/hero_widget.dart';
 import '../../widgets/text_field_widget.dart';
+import '../absensi/checkout_page.dart';
 import '../tagihan/confirm_success_page.dart';
 
 class EntryVisitingPage extends StatefulWidget {
@@ -136,8 +137,23 @@ class _EntryVisitingPageState extends State<EntryVisitingPage> {
 
                       if (isOke != null) {
                         if (isOke) {
-                          Navigator.popAndPushNamed(
-                              context, ConfirmSuccessPage.routeName, arguments: "Data berhasil disimpan!");
+
+                          if (widget.isPlannedVisiting) {
+                            Navigator.popAndPushNamed(
+                                context, ConfirmSuccessPage.routeName, arguments: "Data berhasil disimpan!");
+
+                          }   else {
+                            Navigator.pushNamed(context, CheckOutPage.routeName, arguments: "Unplanned Visiting").then((value) {
+                              if (value != null) {
+                                if (value == true) {
+                                  Navigator.popAndPushNamed(
+                                      context, ConfirmSuccessPage.routeName,
+                                      arguments: "Data berhasil disimpan!");
+                                }
+                              }
+                            });
+                          }
+
                         }
                       }
                     },

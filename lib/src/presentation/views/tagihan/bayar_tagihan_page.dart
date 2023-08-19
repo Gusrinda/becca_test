@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:becca_sales/src/presentation/views/absensi/checkout_page.dart';
 import 'package:becca_sales/src/presentation/widgets/text_field_widget.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
@@ -125,13 +126,16 @@ class _BayarTagihanPageState extends State<BayarTagihanPage> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    final metode = await handleFormPilihFoto(context);
 
-                    if (metode != null) {
-                      print("METODE => ${metode}");
+                    pickMetode("Camera");
 
-                      pickMetode(metode);
-                    }
+                    // final metode = await handleFormPilihFoto(context);
+                    //
+                    // if (metode != null) {
+                    //   print("METODE => ${metode}");
+                    //
+                    //   pickMetode(metode);
+                    // }
                   },
                   child: Container(
                       decoration: BoxDecoration(
@@ -178,8 +182,17 @@ class _BayarTagihanPageState extends State<BayarTagihanPage> {
 
                       if (isOke != null) {
                         if (isOke) {
-                          Navigator.popAndPushNamed(
-                              context, ConfirmSuccessPage.routeName);
+
+                          Navigator.pushNamed(context, CheckOutPage.routeName, arguments: "Bayar Tagihan").then((value) {
+                            if (value != null) {
+                              if (value == true) {
+                                Navigator.popAndPushNamed(
+                                    context, ConfirmSuccessPage.routeName);
+                              }
+                            }
+                          });
+
+
                         }
                       }
                     },

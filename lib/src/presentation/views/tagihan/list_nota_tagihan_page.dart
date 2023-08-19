@@ -1,8 +1,11 @@
+import 'package:becca_sales/src/presentation/views/tagihan/bayar_tagihan_page.dart';
 import 'package:becca_sales/src/presentation/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/config/constant.dart';
 import '../../../core/config/theme_colors.dart';
+import '../absensi/checkout_page.dart';
+import 'confirm_success_page.dart';
 
 class ListNotaPenagihanPage extends StatefulWidget {
   static const String routeName = '/list_nota_penagihan_page';
@@ -65,6 +68,20 @@ class _ListNotaPenagihanPageState extends State<ListNotaPenagihanPage> {
                         final alasanGagal = await handleFormAlasanGagal(
                             context);
                         print("ALASAN => ${alasanGagal}");
+
+                        if (alasanGagal != null) {
+                          Navigator.pushNamed(context, CheckOutPage.routeName, arguments: "Gagal Bayar").then((value) {
+                            if (value != null) {
+                              if (value == true) {
+                                Navigator.popAndPushNamed(
+                                    context, ConfirmSuccessPage.routeName,
+                                arguments: "Permintaan Gagal Bayar Berhasil Dikirim!");
+                              }
+                            }
+                          });
+
+                        }
+
                       },
                       style: OutlinedButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -85,31 +102,7 @@ class _ListNotaPenagihanPageState extends State<ListNotaPenagihanPage> {
                             fontWeight: FontWeight.w400),
                       ),
                     ),
-                    // child: OutlinedButton(
-                    //   onPressed: () async {
-                    //     // final isOke = await handleFormSubmit(context);
-                    //
-                    //     // if(isOke != null) {
-                    //     //   if (isOke) {
-                    //     //     // Navigator.popAndPushNamed(context, ConfirmSuccessPage.routeName);
-                    //     //   }
-                    //     // }
-                    //   },
-                    //
-                    //   child: Text(
-                    //     "Gagal Bayar",
-                    //     style: TextStyle(
-                    //         color: Colors.white,
-                    //         fontSize: 14,
-                    //         fontWeight: FontWeight.w600),
-                    //   ),
-                    //
-                    //   style: OutlinedButton.styleFrom(
-                    //       backgroundColor: themeBlueBg,
-                    //       shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(30)),
-                    //       padding: EdgeInsets.symmetric(vertical: 8)),
-                    // ),
+
                   ),
                   SizedBox(
                     width: 20,
@@ -117,7 +110,9 @@ class _ListNotaPenagihanPageState extends State<ListNotaPenagihanPage> {
                   Expanded(
                     flex: 1,
                     child: OutlinedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.popAndPushNamed(context, BayarTagihanPage.routeName);
+                      },
                       style: OutlinedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.green,
@@ -224,7 +219,7 @@ class _ListNotaPenagihanPageState extends State<ListNotaPenagihanPage> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () => Navigator.pop(context, "false"),
+                        onPressed: () => Navigator.pop(context, null),
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           shape: RoundedRectangleBorder(
@@ -248,7 +243,7 @@ class _ListNotaPenagihanPageState extends State<ListNotaPenagihanPage> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context, "true");
+                          Navigator.pop(context, rxPickup.value);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: themeBlueBg,

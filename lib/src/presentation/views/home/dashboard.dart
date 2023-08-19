@@ -7,6 +7,7 @@ import 'package:becca_sales/src/presentation/views/profile/profile_page.dart';
 import 'package:becca_sales/src/presentation/views/visiting/visiting_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/assets/assets.gen.dart';
 import '../../../core/config/theme_colors.dart';
@@ -70,19 +71,19 @@ class _DashboardPageState extends State<DashboardPage> {
       unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal),
       items: [
         CustomBottomAppBarItem(
-          icon: CupertinoIcons.house,
+          icon: Assets.material.home,
           text: "Home",
         ),
         CustomBottomAppBarItem(
-          icon: CupertinoIcons.location_solid,
+          icon: Assets.material.mapPin,
           text: "Visit Plan",
         ),
         CustomBottomAppBarItem(
-          icon: CupertinoIcons.bell_fill,
+          icon: Assets.material.bell,
           text: "Notif",
         ),
         CustomBottomAppBarItem(
-          icon: CupertinoIcons.person_fill,
+          icon: Assets.material.user,
           text: "Profile",
         ),
       ],
@@ -105,11 +106,7 @@ class _Fab extends StatelessWidget {
       },
       backgroundColor: ThemeColors.yellow,
       foregroundColor: Colors.white,
-      child: Icon(
-        CupertinoIcons.cart_fill,
-        size: 28,
-        color: Colors.white,
-      ),
+      child: SvgPicture.asset(Assets.material.order),
     );
   }
 }
